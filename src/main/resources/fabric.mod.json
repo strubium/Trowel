@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "trowel",
+  "version": "1.0.0",
+  "name": "Trowel",
+  "description": "A tool for placing random blocks from your hotbar.",
+  "authors": ["TheEnderCore", "Astra"],
+  "contact": {
+    "sources": "https://github.com/theendercore/Trowel"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.theendercore.trowel.TrowelMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.22",
+    "fabric": "*",
+    "minecraft": "1.20.1"
+  }
+}

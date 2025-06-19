@@ -1,81 +1,43 @@
-@file:Suppress("PropertyName", "VariableNaming")
-
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    alias(libs.plugins.fabric.loom)
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.iridium)
-    alias(libs.plugins.iridium.publish)
-    alias(libs.plugins.iridium.upload)
+    id("fabric-loom") version "1.6-SNAPSHOT" // latest Loom that supports 1.20.1
 }
 
-group = property("maven_group")!!
-version = property("mod_version")!!
-base.archivesName.set(property("archives_base_name") as String)
-description = property("description") as String
+group = "com.theendercore"
+version = "1.0.0"
+base.archivesName.set("trowel")
+description = "A tool for placing random blocks from your hotbar."
 
-val modid: String by project
-val mod_name: String by project
-val modrinth_id: String? by project
-val curse_id: String? by project
+val modid = "trowel"
 
 repositories {
-    maven("https://teamvoided.org/releases")
     mavenCentral()
-}
-
-
-modSettings {
-    modId(modid)
-    modName(mod_name)
-
-    entrypoint("main", "com.theendercore.trowel.TrowelMod")
+    maven("https://maven.fabricmc.net/") // Fabric Maven
 }
 
 dependencies {
-    modImplementation(fileTree("libs"))
+    minecraft("com.mojang:minecraft:1.20.1")
+    mappings("net.fabricmc:yarn:1.20.1+build.10:v2")
+    modImplementation("net.fabricmc:fabric-loader:0.14.22")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.85.0+1.20.1")
 }
 
 loom {
     runs {
-        create("TestWorld") {
-            client()
+        named("client") {
             ideConfigGenerated(true)
             runDir("run")
-            programArgs("--quickPlaySingleplayer", "test")
         }
     }
 }
 
 tasks {
-    val targetJavaVersion = 17
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.release.set(targetJavaVersion)
-    }
-
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = targetJavaVersion.toString()
+        options.release.set(17)
     }
 
     java {
-        toolchain.languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(targetJavaVersion).toString()))
+        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
         withSourcesJar()
     }
-}
-
-uploadConfig {
-//    debugMode = true
-    modrinthId = modrinth_id
-    curseId = curse_id
-
-    changeLog = "- fixed bug with rechisel\n- update to 20.6"
-    // FabricApi
-    modrinthDependency("P7dR8mSH", uploadConfig.REQUIRED)
-    curseDependency("fabric-api", uploadConfig.REQUIRED)
-    // Fabric Language Kotlin
-    modrinthDependency("Ha28R6CL", uploadConfig.REQUIRED)
-    curseDependency("fabric-language-kotlin", uploadConfig.REQUIRED)
 }
