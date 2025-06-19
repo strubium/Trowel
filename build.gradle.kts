@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "1.6-SNAPSHOT" // latest Loom that supports 1.20.1
+    id("fabric-loom") version "1.6.11" // or latest
 }
 
 group = "com.theendercore"
@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:1.20.1")
-    mappings("net.fabricmc:yarn:1.20.1+build.10:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.14.22")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.85.0+1.20.1")
+    minecraft("com.mojang:minecraft:1.20.6")
+    mappings("net.fabricmc:yarn:1.20.6+build.3:v2")
+    modImplementation("net.fabricmc:fabric-loader:0.15.10")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.100.8+1.20.6")
 }
 
 loom {
@@ -33,11 +33,11 @@ loom {
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
     }
 
     java {
-        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
         withSourcesJar()
     }
 }

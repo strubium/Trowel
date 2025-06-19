@@ -2,16 +2,14 @@
   "parent": "minecraft:story/smelt_iron",
   "criteria": {
     "trowel": {
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "trowel:trowel"
-            ]
+            "id": "trowel:trowel"
           }
         ]
-      },
-      "trigger": "minecraft:inventory_changed"
+      }
     }
   },
   "display": {
@@ -22,7 +20,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "trowel:trowel"
+      "id": "trowel:trowel"
     },
     "show_toast": true,
     "title": {
@@ -30,8 +28,6 @@
     }
   },
   "requirements": [
-    [
-      "trowel"
-    ]
+    ["trowel"]
   ]
 }
