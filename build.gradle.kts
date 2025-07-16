@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:1.20.6")
-    mappings("net.fabricmc:yarn:1.20.6+build.3:v2")
+    minecraft("com.mojang:minecraft:1.19.2")
+    mappings("net.fabricmc:yarn:1.19.2+build.28:v2")
     modImplementation("net.fabricmc:fabric-loader:0.15.10")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.100.8+1.20.6")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.77.0+1.19.2")
 }
 
 loom {

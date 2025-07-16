@@ -16,7 +16,7 @@ import java.util.List;
 public class Trowel extends Item {
 
     public Trowel() {
-        super(new Item.Settings().maxCount(1));
+        super(new Settings().maxCount(1));
     }
 
     @Override
