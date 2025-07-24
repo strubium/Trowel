@@ -1,19 +1,21 @@
 package com.theendercore.trowel;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class TrowelMod implements ModInitializer {
+@Mod(modid = TrowelMod.MODID, name = "Trowel", version = "1.0.0")
+@EventBusSubscriber
+public class TrowelMod {
     public static final String MODID = "trowel";
     public static final Item TROWEL = new Trowel();
 
-    @Override
-    public void onInitialize() {
-        Registry.register(Registry.ITEM, new Identifier(MODID, MODID), TROWEL);
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().register(TROWEL);
     }
 }

@@ -1,41 +1,54 @@
 plugins {
-    id("fabric-loom") version "1.6.11"
+    id("com.gtnewhorizons.retrofuturagradle") version "1.4.5"
+    id("io.freefair.lombok") version "8.13"
 }
 
 group = "com.theendercore"
-version = "1.0.0"
-base.archivesName.set("trowel")
-description = "A tool for placing random blocks from your hotbar."
+version = "1.12-1.0.0"
 
-val modid = "trowel"
+val id = "trowel"
+
+minecraft {
+    mcVersion = "1.12.2"
+    extraRunJvmArguments = listOf("-Dforge.logging.console.level=debug")
+}
 
 repositories {
-    mavenCentral()
-    maven("https://maven.fabricmc.net/") // Fabric Maven
-}
+    maven {
+        name = "Cleanroom"
+        url = uri("https://maven.cleanroommc.com")
+    }
 
-dependencies {
-    minecraft("com.mojang:minecraft:1.14.4")
-    mappings("net.fabricmc:yarn:1.14.4+build.18:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.16.14")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.28.5+1.14")
-}
-
-loom {
-    runs {
-        named("client") {
-            ideConfigGenerated(true)
-            runDir("run")
-        }
+    maven {
+        name = "CoFH Maven"
+        url = uri("https://maven.covers1624.net")
     }
 }
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(8)) // Java 8 is standard for 1.16.5
-    withSourcesJar()
+dependencies {
+    compileOnly(rfg.deobf("mezz:jei:4.26.2"))
+    compileOnly(rfg.deobf("cofh:RedstoneFlux:1.12-2.0.1.2:universal"))
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-    // No `options.release.set(21)` since we're targeting Java 8
+// Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+
+tasks {
+
+    processResources {
+        val expandProperties = mapOf(
+            "version" to project.version,
+            "name" to project.name,
+            "id" to id
+        )
+
+        inputs.properties(expandProperties)
+    }
+
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+
+        options.isFork = true
+        options.forkOptions.jvmArgs = listOf("-Xmx4G", "-XX:+UseStringDeduplication")
+    }
 }

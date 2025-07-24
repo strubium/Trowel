@@ -1,10 +1,18 @@
 rootProject.name = "Trowel"
+
 pluginManagement {
     repositories {
-        maven("https://maven.fabricmc.net/") { name = "Fabric" }
-        maven("https://maven.teamvoided.org/releases")
-        mavenLocal()
-        mavenCentral()
+        maven {
+            // RetroFuturaGradle
+            name = "GTNH Maven"
+            url = uri("https://nexus.gtnewhorizons.com/repository/public/")
+            mavenContent {
+                includeGroupByRegex("com\\.gtnewhorizons\\..+")
+                includeGroup("com.gtnewhorizons")
+            }
+        }
         gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
     }
 }

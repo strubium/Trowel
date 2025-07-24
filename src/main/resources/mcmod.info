@@ -1,0 +1,14 @@
+[{
+  "modid": "trowel",
+  "name": "Trowel",
+  "description": "A tool for placing random blocks from your hotbar.",
+  "version": "${version}",
+  "mcversion": "1.12.2",
+  "logoFile": "",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["YourName"],
+  "credits": "",
+  "screenshots": [],
+  "dependencies": []
+}]
