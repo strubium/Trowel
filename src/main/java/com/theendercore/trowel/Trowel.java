@@ -21,6 +21,7 @@ public class Trowel extends Item {
         setCreativeTab(CreativeTabs.TOOLS);
         setRegistryName("trowel");
         setTranslationKey("trowel");
+        setMaxDamage(255);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class Trowel extends Item {
 
         if (placeable.isEmpty()) return EnumActionResult.PASS;
 
+        player.getHeldItem(hand).damageItem(1, player);
         return tryPlace(world, player, pos, facing, hand, placeable, player.inventory.currentItem);
     }
 
